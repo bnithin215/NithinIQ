@@ -53,6 +53,8 @@ firestore-debug.log
 ui-debug.log
 .firebaserc
 firebase-export-*.json
+firebase.json
+firestore.indexes.json
 
 # Environment variables
 # Keep .example files, but ignore actual environment files with real API keys
@@ -71,6 +73,7 @@ firebase-export-*.json
 # The example files (environment.example.ts, environment.prod.example.ts) should ALWAYS be committed
 
 # Cypress
+/cypress
 /cypress/videos
 /cypress/screenshots
 /cypress/downloads
@@ -141,5 +144,3 @@ jspm_packages/
 # Temporary folders
 tmp/
 temp/
-cypress
-/cypress
