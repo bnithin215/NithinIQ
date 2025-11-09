@@ -1,0 +1,99 @@
+<app-navbar></app-navbar>
+
+<div class="dashboard-container container">
+  <div *ngIf="userData?.isAnonymous" class="alert alert-info card fade-in mb-4">
+    <div class="alert-icon">ℹ️</div>
+    <div class="alert-content">
+      <h3 class="alert-title">Guest Mode</h3>
+      <p class="alert-text">
+        You're browsing as a guest. <a routerLink="/register" class="link-primary">Create an account</a> to save your documents permanently.
+      </p>
+    </div>
+  </div>
+
+  <div class="dashboard-header fade-in">
+    <h1 class="dashboard-title">Dashboard</h1>
+    <p class="dashboard-subtitle" *ngIf="userData">
+      Welcome back, {{ userData.name || 'User' }}! 👋
+    </p>
+  </div>
+
+  <div class="stats-grid grid grid-cols-3 mt-4">
+    <div class="stat-card card">
+      <div class="stat-icon">📊</div>
+      <div class="stat-value">{{ uploadCount }}</div>
+      <div class="stat-label">Total Documents</div>
+    </div>
+
+    <div class="stat-card card">
+      <div class="stat-icon">💬</div>
+      <div class="stat-value">AI Ready</div>
+      <div class="stat-label">Chat Enabled</div>
+    </div>
+
+    <div class="stat-card card">
+      <div class="stat-icon">⚡</div>
+      <div class="stat-value">Active</div>
+      <div class="stat-label">System Status</div>
+    </div>
+  </div>
+
+  <div class="dashboard-actions mt-4">
+    <a routerLink="/upload" class="action-card card">
+      <div class="action-icon">📤</div>
+      <h3 class="action-title">Upload Documents</h3>
+      <p class="action-description">Upload files or add text notes to build your knowledge base</p>
+    </a>
+
+    <a routerLink="/chat" class="action-card card">
+      <div class="action-icon">💬</div>
+      <h3 class="action-title">Ask Questions</h3>
+      <p class="action-description">Chat with AI about your uploaded documents</p>
+    </a>
+
+    <a routerLink="/documents" class="action-card card">
+      <div class="action-icon">📂</div>
+      <h3 class="action-title">View Documents</h3>
+      <p class="action-description">Browse and manage your document library</p>
+    </a>
+  </div>
+
+  <!-- Resume Q&A Module -->
+  <div class="resume-qa-section mt-4" *ngIf="!isLoading">
+    <app-resume-qa [resumeDocument]="resumeDocument"></app-resume-qa>
+  </div>
+
+  <div class="recent-documents mt-4" *ngIf="!isLoading">
+    <div class="card">
+      <div class="card-header">
+        <h2 class="card-title">Recent Documents</h2>
+      </div>
+
+      <div *ngIf="documents.length === 0" class="empty-state">
+        <div class="empty-icon">📄</div>
+        <p class="empty-text">No documents yet. Start by uploading your first document!</p>
+        <a routerLink="/upload" class="btn btn-primary mt-2">Upload Document</a>
+      </div>
+
+      <div *ngIf="documents.length > 0" class="documents-list">
+        <div *ngFor="let doc of documents.slice(0, 5)" class="document-item">
+          <div class="document-info">
+            <div class="document-icon">📄</div>
+            <div>
+              <div class="document-title">{{ doc.title }}</div>
+              <div class="document-meta">
+                <span>{{ formatDate(doc.createdAt) }}</span>
+                <span class="document-size">• {{ (doc.fileSize / 1024).toFixed(2) }} KB</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="isLoading" class="loading-state">
+    <div class="spinner"></div>
+    <p class="text-muted">Loading dashboard...</p>
+  </div>
+</div>

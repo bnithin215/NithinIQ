@@ -1,0 +1,81 @@
+<app-navbar></app-navbar>
+
+<div class="documents-container container">
+  <div class="documents-header fade-in">
+    <h1 class="documents-title">My Documents</h1>
+    <p class="documents-subtitle">Manage your uploaded documents</p>
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-error mt-3">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="isLoading" class="loading-state">
+    <div class="spinner"></div>
+    <p class="text-muted">Loading documents...</p>
+  </div>
+
+  <div *ngIf="!isLoading && documents.length === 0" class="empty-state card mt-4">
+    <div class="empty-icon">📂</div>
+    <h2 class="empty-title">No documents yet</h2>
+    <p class="empty-text">Start by uploading your first document to build your knowledge base.</p>
+    <a routerLink="/upload" class="btn btn-primary mt-3">Upload Document</a>
+  </div>
+
+  <div *ngIf="!isLoading && documents.length > 0" class="documents-grid grid grid-cols-1 mt-4">
+    <div *ngFor="let doc of documents" class="document-card card fade-in">
+      <div class="document-card-header">
+        <div class="document-icon-large">{{ getFileIcon(doc.fileType) }}</div>
+        <div class="document-card-info">
+          <h3 class="document-card-title">{{ doc.title }}</h3>
+          <div class="document-card-meta">
+            <span class="meta-item">
+              <span class="meta-icon">📅</span>
+              {{ formatDate(doc.createdAt) }}
+            </span>
+            <span class="meta-item">
+              <span class="meta-icon">📊</span>
+              {{ formatFileSize(doc.fileSize) }}
+            </span>
+            <span class="meta-item">
+              <span class="meta-icon">📄</span>
+              {{ doc.fileType || 'Unknown' }}
+            </span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="document-card-actions">
+        <button
+          class="btn btn-secondary btn-sm"
+          (click)="viewDocument(doc)"
+        >
+          View
+        </button>
+        <button
+          class="btn btn-secondary btn-sm"
+          (click)="downloadDocument(doc)"
+        >
+          Download
+        </button>
+        <button
+          class="btn btn-danger btn-sm"
+          (click)="deleteDocument(doc)"
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!isLoading && documents.length > 0" class="documents-summary card mt-4">
+    <div class="summary-item">
+      <span class="summary-label">Total Documents:</span>
+      <span class="summary-value">{{ documents.length }}</span>
+    </div>
+    <div class="summary-item">
+      <span class="summary-label">Total Size:</span>
+      <span class="summary-value">{{ getTotalFileSize() }}</span>
+    </div>
+  </div>
+</div>

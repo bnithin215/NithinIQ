@@ -1,0 +1,59 @@
+<app-navbar></app-navbar>
+
+<div class="chat-container">
+  <div class="chat-wrapper">
+    <div class="chat-header card">
+      <h1 class="chat-title">💬 AI Chat Assistant</h1>
+      <p class="chat-subtitle">Ask questions about your uploaded documents</p>
+    </div>
+
+    <div class="chat-messages card" #chatContainer>
+      <div *ngFor="let message of messages" class="message" [class.user]="message.role === 'user'" [class.assistant]="message.role === 'assistant'">
+        <div class="message-avatar">
+          <span *ngIf="message.role === 'user'">👤</span>
+          <span *ngIf="message.role === 'assistant'">🤖</span>
+        </div>
+        <div class="message-content">
+          <div class="message-text">{{ message.content }}</div>
+          <div class="message-time">{{ formatTime(message.timestamp) }}</div>
+        </div>
+      </div>
+
+      <div *ngIf="isLoading" class="message assistant">
+        <div class="message-avatar">🤖</div>
+        <div class="message-content">
+          <div class="message-text">
+            <div class="typing-indicator">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-input-container card">
+      <form (ngSubmit)="sendMessage()" class="chat-input-form">
+        <textarea
+          #messageInput
+          name="messageInput"
+          [(ngModel)]="currentMessage"
+          (keydown.enter)="$event.preventDefault(); sendMessage()"
+          class="chat-input"
+          placeholder="Ask a question about your documents..."
+          rows="3"
+          [disabled]="isLoading"
+        ></textarea>
+        <button
+          type="submit"
+          class="btn btn-primary send-button"
+          [disabled]="!currentMessage.trim() || isLoading"
+        >
+          <span *ngIf="!isLoading">Send</span>
+          <span *ngIf="isLoading" class="spinner-small"></span>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

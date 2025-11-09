@@ -1,0 +1,84 @@
+<div class="resume-qa-container">
+  <div class="card">
+    <div class="card-header">
+      <div class="header-content">
+        <div class="header-icon">📋</div>
+        <div>
+          <h2 class="card-title">Resume Q&A - 30 Interview Questions</h2>
+          <p class="card-subtitle">AI-generated interview questions based on your resume</p>
+        </div>
+      </div>
+      <button 
+        *ngIf="hasResume && !isLoading" 
+        class="btn btn-secondary btn-sm"
+        (click)="refreshQuestions()"
+        title="Regenerate questions"
+      >
+        🔄 Refresh
+      </button>
+    </div>
+
+    <div *ngIf="!hasResume" class="empty-state">
+      <div class="empty-icon">📄</div>
+      <h3 class="empty-title">No Resume Found</h3>
+      <p class="empty-text">
+        Upload a resume document to generate interview questions. 
+        Name your file with "resume" or "cv" in the filename.
+      </p>
+    </div>
+
+    <div *ngIf="errorMessage" class="alert alert-error">
+      <div class="alert-icon">⚠️</div>
+      <div class="alert-content">
+        <p class="alert-text">{{ errorMessage }}</p>
+        <button class="btn btn-primary btn-sm mt-2" (click)="loadQuestions()">
+          Try Again
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="isLoading" class="loading-state">
+      <div class="spinner"></div>
+      <p class="text-muted">Generating 30 interview questions from your resume...</p>
+      <p class="text-muted text-sm">This may take a moment</p>
+    </div>
+
+    <div *ngIf="hasResume && !isLoading && questions.length > 0" class="questions-container">
+      <div class="questions-header">
+        <div class="questions-count">
+          <span class="count-badge">{{ questions.length }}</span>
+          <span>Questions Generated</span>
+        </div>
+        <div class="questions-info">
+          <span class="info-text">💡 Click any question to copy it</span>
+        </div>
+      </div>
+
+      <div class="questions-grid">
+        <div 
+          *ngFor="let question of questions; let i = index" 
+          class="question-card"
+          [title]="'Click to copy question ' + (i + 1)"
+        >
+          <div class="question-number">{{ i + 1 }}</div>
+          <div class="question-text" (click)="copyQuestion(question)">{{ question }}</div>
+          <div class="question-action" (click)="copyQuestion(question, $event)" title="Copy question">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            <span class="action-text">Copy</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="questions-footer">
+        <p class="footer-text">
+          These questions are generated based on your resume content. 
+          Use them to prepare for interviews and practice your answers.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+

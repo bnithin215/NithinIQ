@@ -1,0 +1,7 @@
+/* App Component Styles */
+app-root {
+  display: block;
+  min-height: 100vh;
+  background: var(--background);
+}
+

@@ -1,0 +1,84 @@
+<app-navbar></app-navbar>
+
+<div class="profile-container container">
+  <div class="profile-header fade-in">
+    <h1 class="profile-title">Profile</h1>
+    <p class="profile-subtitle">Your account information</p>
+  </div>
+
+  <div *ngIf="isLoading" class="loading-state">
+    <div class="spinner"></div>
+    <p class="text-muted">Loading profile...</p>
+  </div>
+
+  <div *ngIf="!isLoading && userData" class="profile-content">
+    <div *ngIf="userData.isAnonymous" class="alert alert-warning card fade-in mb-4">
+      <div class="alert-icon">⚠️</div>
+      <div class="alert-content">
+        <h3 class="alert-title">Guest Account</h3>
+        <p class="alert-text">
+          You're currently signed in as a guest. Create an account to save your data permanently and access it from any device.
+        </p>
+        <a routerLink="/register" class="btn btn-primary mt-2">Create Account</a>
+      </div>
+    </div>
+
+    <div class="profile-card card fade-in">
+      <div class="profile-avatar">
+        <div class="avatar-circle">
+          {{ (userData.name || 'User').charAt(0).toUpperCase() }}
+        </div>
+      </div>
+
+      <div class="profile-info">
+        <div class="info-section">
+          <label class="info-label">Name</label>
+          <div class="info-value">{{ userData.name || 'Not set' }}</div>
+        </div>
+
+        <div class="info-section">
+          <label class="info-label">Email</label>
+          <div class="info-value">{{ userData.email || (userData.isAnonymous ? 'Guest Account' : 'Not set') }}</div>
+        </div>
+
+        <div class="info-section">
+          <label class="info-label">Phone</label>
+          <div class="info-value">{{ userData.phone || 'Not set' }}</div>
+        </div>
+
+        <div class="info-section" *ngIf="!userData.isAnonymous">
+          <label class="info-label">Member Since</label>
+          <div class="info-value">{{ formatDate(userData.createdAt) }}</div>
+        </div>
+
+        <div class="info-section" *ngIf="userData.isAnonymous">
+          <label class="info-label">Account Type</label>
+          <div class="info-value">Guest (Temporary)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-stats card fade-in mt-4">
+      <h2 class="stats-title">Statistics</h2>
+      <div class="stats-grid grid grid-cols-2">
+        <div class="stat-item">
+          <div class="stat-label">Documents</div>
+          <div class="stat-value">{{ documentCount }}</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-label">Account Status</div>
+          <div class="stat-value text-success">Active</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-actions card fade-in mt-4">
+      <h2 class="actions-title">Account Actions</h2>
+      <div class="actions-list">
+        <button class="btn btn-danger btn-full" (click)="logout()">
+          Logout
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
