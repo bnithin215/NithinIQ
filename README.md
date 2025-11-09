@@ -2,7 +2,7 @@
 
 An intelligent document management and AI-powered Q&A platform built with Angular 17, Firebase, and OpenAI. Upload documents, extract text from PDFs, and get AI-powered answers based on your document content.
 
-## 🚀 Features
+## Features
 
 - **Document Management**: Upload PDFs, text files, and other documents
 - **PDF Text Extraction**: Automatic text extraction from PDF files for AI analysis
@@ -13,7 +13,7 @@ An intelligent document management and AI-powered Q&A platform built with Angula
 - **Modern UI**: Beautiful, responsive dark theme interface
 - **Real-time Updates**: Real-time document sync with Firestore
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Frontend**: Angular 17
 - **Backend**: Firebase (Authentication, Firestore)
@@ -21,7 +21,7 @@ An intelligent document management and AI-powered Q&A platform built with Angula
 - **PDF Processing**: PDF.js
 - **Styling**: CSS3 with custom dark theme
 
-## 📋 Prerequisites
+## Prerequisites
 
 Before you begin, ensure you have the following installed:
 
@@ -30,7 +30,7 @@ Before you begin, ensure you have the following installed:
 - Firebase account
 - OpenAI API key
 
-## 🔧 Setup Instructions
+## Setup Instructions
 
 ### 1. Clone the Repository
 
@@ -47,7 +47,7 @@ npm install
 
 ### 3. Configure Environment Variables
 
-**⚠️ Important**: You must configure your API keys before running the application.
+**Important**: You must configure your API keys before running the application.
 
 1. Copy the example environment files:
    ```bash
@@ -82,7 +82,7 @@ npm start
 
 Navigate to `http://localhost:4200/` in your browser.
 
-## 🏗️ Build for Production
+## Build for Production
 
 ```bash
 npm run build
@@ -90,7 +90,7 @@ npm run build
 
 The build artifacts will be stored in the `dist/` directory.
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 NithinIQ/
@@ -104,23 +104,22 @@ NithinIQ/
 │   └── ...
 ├── public/                  # Static assets (logo, etc.)
 ├── firestore.rules          # Firestore security rules
-├── firebase.json            # Firebase configuration
 └── ...
 ```
 
-## 🔐 Security
+## Security
 
-**⚠️ Never commit your API keys to version control!**
+**Never commit your API keys to version control!**
 
 - Environment files with placeholder values are committed to the repository
 - Add your actual API keys locally in `src/environments/environment.ts`
 - See [ENVIRONMENT_SETUP.md](./ENVIRONMENT_SETUP.md) for security best practices
 
-## 📚 Documentation
+## Documentation
 
 - [Environment Setup Guide](./ENVIRONMENT_SETUP.md) - Detailed environment configuration and security best practices
 
-## 🧪 Testing
+## Testing
 
 Run unit tests:
 ```bash
@@ -132,7 +131,7 @@ Run end-to-end tests:
 npm run e2e
 ```
 
-## 🚀 Deployment
+## Deployment
 
 ### Firebase Hosting
 
@@ -141,27 +140,31 @@ npm run e2e
    npm run build
    ```
 
-2. Deploy to Firebase:
+2. Configure Firebase (if not already done):
+   - Create a `firebase.json` configuration file for Firebase Hosting
+   - Configure Firestore rules and indexes as needed
+
+3. Deploy to Firebase:
    ```bash
    firebase deploy
    ```
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## 📝 License
+## License
 
 This project is licensed under the MIT License.
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - [Angular](https://angular.io/)
 - [Firebase](https://firebase.google.com/)
 - [OpenAI](https://openai.com/)
 - [PDF.js](https://mozilla.github.io/pdf.js/)
 
-## 📧 Support
+## Support
 
 For issues and questions, please open an issue on GitHub.
 
